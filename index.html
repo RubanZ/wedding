@@ -424,7 +424,7 @@
 
             .detail-card {
                 background: var(--bg-secondary);
-                padding: 2rem;
+                padding: 1.5rem;
                 border: 1px solid rgba(201, 169, 98, 0.1);
                 transition:
                     border-color 0.3s ease,
@@ -523,6 +523,13 @@
                 line-height: 1.8;
             }
 
+            .dresscode-card img {
+                max-width: 100%;
+                height: auto;
+                margin-bottom: 1rem;
+                border-radius: 4px;
+            }
+
             .color-palette {
                 display: flex;
                 justify-content: center;
@@ -585,6 +592,13 @@
                 background: var(--bg-secondary);
                 margin: 4rem 0;
                 border: 1px solid rgba(201, 169, 98, 0.1);
+            }
+
+            .rocky-image {
+                max-width: 150px;
+                margin: 1.5rem auto;
+                display: block;
+                border-radius: 8px;
             }
 
             .rocky-title {
@@ -926,6 +940,10 @@
                 .checkbox-group {
                     grid-template-columns: 1fr;
                 }
+
+                .rocky-image {
+                    max-width: 120px;
+                }
             }
         </style>
     </head>
@@ -1066,7 +1084,7 @@
                     <p>Atmosfera POINT</p>
                     <div class="small">г. Екатеринбург</div>
                     <a
-                        href="https://yandex.ru/maps/?text=Улица%20Бориса%20Ельцина%2C%206%2C%20Екатеринбург"
+                        href="https://yandex.ru/maps/-/CLtw5HPn"
                         target="_blank"
                         class="map-link"
                     >
@@ -1114,6 +1132,10 @@
             <div class="dresscode-cards">
                 <div class="dresscode-card">
                     <h4>// Для девушек</h4>
+                    <img
+                        src="img/dress_code.png"
+                        alt="Примеры нарядов для девушек"
+                    />
                     <p>
                         Актуальная гамма шоколадного оттенка, бежевой гаммы и,
                         беспроигрышный вариант, элегантные чёрные платья.
@@ -1123,6 +1145,10 @@
                 </div>
                 <div class="dresscode-card">
                     <h4>// Для мужчин</h4>
+                    <img
+                        src="img/dress_code_2.png"
+                        alt="Примеры нарядов для мужчин"
+                    />
                     <p>
                         Можете поддержать цветовую гамму или отдать предпочтение
                         классическим чёрным костюмам.
@@ -1134,6 +1160,7 @@
         <!-- Rocky Section -->
         <div class="rocky-section">
             <div class="rocky-title">«Одобрено Рокки»</div>
+            <img src="img/approved.png" alt="Рокки" class="rocky-image" />
             <p class="rocky-desc">
                 Просим вас не дарить нам букеты цветов, потому что мы не успеем
                 насладиться ими. Вместо этого будем рады, если вы поддержите
