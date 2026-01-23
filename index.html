@@ -676,6 +676,59 @@
             color: var(--bg-primary);
         }
 
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .submit-btn.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .submit-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid var(--accent-gold);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent-gold);
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .success-message p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
         /* Organizer Section */
         .organizer {
             text-align: center;
@@ -720,27 +773,6 @@
 
         .organizer-tg:hover {
             color: var(--accent-gold);
-        }
-
-        /* Note Section */
-        .note-section {
-            text-align: center;
-            padding: 3rem 2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .note-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            line-height: 2;
-            font-style: italic;
-        }
-
-        .note-text strong {
-            color: var(--text-primary);
-            font-weight: 400;
         }
 
         /* Footer */
@@ -1010,7 +1042,13 @@
             Просим ответить до 17 февраля 2026
         </p>
         
-        <form class="rsvp-form" onsubmit="handleSubmit(event)">
+        <!-- Success Message (hidden by default) -->
+        <div class="success-message" id="successMessage">
+            <h3>Спасибо!</h3>
+            <p>Ваш ответ успешно отправлен.<br>Ждём вас на празднике!</p>
+        </div>
+        
+        <form class="rsvp-form" id="rsvpForm" onsubmit="handleSubmit(event)">
             <div class="form-group">
                 <label for="name">Как вас зовут?</label>
                 <input type="text" id="name" name="name" placeholder="Имя и Фамилия" required>
@@ -1020,9 +1058,9 @@
                 <label for="attendance">Присутствие</label>
                 <select id="attendance" name="attendance" required>
                     <option value="">Выберите ответ</option>
-                    <option value="yes">С радостью приду</option>
-                    <option value="plus1">Приду с парой</option>
-                    <option value="no">К сожалению, не смогу</option>
+                    <option value="С радостью приду">С радостью приду</option>
+                    <option value="Приду с парой">Приду с парой</option>
+                    <option value="К сожалению, не смогу">К сожалению, не смогу</option>
                 </select>
             </div>
             
@@ -1038,57 +1076,57 @@
                 </p>
                 <div class="checkbox-group">
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="no_alcohol">
+                        <input type="checkbox" name="drinks" value="Не пью алкоголь">
                         <span>Не пью алкоголь</span>
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="white_dry">
+                        <input type="checkbox" name="drinks" value="Вино белое сухое">
                         <span>Вино белое сухое</span>
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="white_semi">
+                        <input type="checkbox" name="drinks" value="Вино белое полусладкое">
                         <span>Вино белое полусладкое</span>
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="red_semi">
+                        <input type="checkbox" name="drinks" value="Вино красное полусладкое">
                         <span>Вино красное полусладкое</span>
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="red_dry">
+                        <input type="checkbox" name="drinks" value="Вино красное сухое">
                         <span>Вино красное сухое</span>
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="brut">
+                        <input type="checkbox" name="drinks" value="Шампанское брют">
                         <span>Шампанское брют</span>
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="champagne_semi">
+                        <input type="checkbox" name="drinks" value="Шампанское полусладкое">
                         <span>Шампанское полусладкое</span>
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="cocktails_light">
+                        <input type="checkbox" name="drinks" value="Коктейли (Апероль, Мартини)">
                         <span>Коктейли (Апероль, Мартини…)</span>
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="cognac">
+                        <input type="checkbox" name="drinks" value="Коньяк">
                         <span>Коньяк</span>
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="whiskey">
+                        <input type="checkbox" name="drinks" value="Виски">
                         <span>Виски</span>
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="vodka">
+                        <input type="checkbox" name="drinks" value="Водка">
                         <span>Водка</span>
                     </label>
                     <label class="checkbox-item">
-                        <input type="checkbox" name="drinks" value="cocktails_strong">
+                        <input type="checkbox" name="drinks" value="Коктейли (Виски-кола, Ром-кола)">
                         <span>Коктейли (Виски-кола, Ром-кола…)</span>
                     </label>
                 </div>
             </div>
             
-            <button type="submit" class="submit-btn">Отправить</button>
+            <button type="submit" class="submit-btn" id="submitBtn">Отправить</button>
         </form>
     </section>
 
@@ -1117,6 +1155,9 @@
     </footer>
 
     <script>
+        // Google Apps Script URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbySIm1R8DrP_Q__Uu5CnQi_YH4xW9EBnzsDm4KywTj59eVYNH11eaItd6B7RrJnz9Vy4Q/exec';
+
         // Smooth reveal on scroll
         const observerOptions = {
             threshold: 0.1,
@@ -1140,42 +1181,62 @@
         });
 
         // Form submission handler
-        function handleSubmit(event) {
+        async function handleSubmit(event) {
             event.preventDefault();
             
+            const btn = document.getElementById('submitBtn');
+            const form = document.getElementById('rsvpForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Collect drinks
             const drinks = Array.from(document.querySelectorAll('input[name="drinks"]:checked'))
                 .map(cb => cb.value);
             
             const formData = {
                 name: document.getElementById('name').value,
                 attendance: document.getElementById('attendance').value,
-                dietary: document.getElementById('dietary').value,
-                drinks: drinks
+                dietary: document.getElementById('dietary').value || '—',
+                drinks: drinks.length > 0 ? drinks : ['Не указано']
             };
             
-            // Here you would typically send this data to a server
-            console.log('Form submitted:', formData);
-            
-            // Show confirmation
-            const btn = event.target.querySelector('.submit-btn');
-            btn.textContent = 'Спасибо! ✓';
-            btn.style.background = 'var(--accent-gold)';
-            btn.style.color = 'var(--bg-primary)';
+            // Show loading state
+            btn.classList.add('loading');
             btn.disabled = true;
             
-            // Reset form after delay
-            setTimeout(() => {
-                event.target.reset();
-                btn.textContent = 'Отправить';
-                btn.style.background = 'transparent';
-                btn.style.color = 'var(--accent-gold)';
+            try {
+                // Send data to Google Sheets
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Required for Google Apps Script
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                // Show success message
+                form.style.display = 'none';
+                successMessage.classList.add('show');
+                
+            } catch (error) {
+                console.error('Error:', error);
+                btn.classList.remove('loading');
                 btn.disabled = false;
-            }, 3000);
+                btn.textContent = 'Ошибка. Попробуйте ещё раз';
+                btn.style.borderColor = '#ff6b6b';
+                btn.style.color = '#ff6b6b';
+                
+                setTimeout(() => {
+                    btn.textContent = 'Отправить';
+                    btn.style.borderColor = '';
+                    btn.style.color = '';
+                }, 3000);
+            }
         }
 
         // Handle "no alcohol" checkbox
-        document.querySelector('input[value="no_alcohol"]').addEventListener('change', function() {
-            const otherCheckboxes = document.querySelectorAll('input[name="drinks"]:not([value="no_alcohol"])');
+        document.querySelector('input[value="Не пью алкоголь"]').addEventListener('change', function() {
+            const otherCheckboxes = document.querySelectorAll('input[name="drinks"]:not([value="Не пью алкоголь"])');
             if (this.checked) {
                 otherCheckboxes.forEach(cb => {
                     cb.checked = false;
