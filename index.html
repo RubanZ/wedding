@@ -10,1077 +10,25 @@
             href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&family=Source+Code+Pro:wght@300;400&display=swap"
             rel="stylesheet"
         />
-        <style>
-            :root {
-                --bg-primary: #0a0a0a;
-                --bg-secondary: #111111;
-                --bg-card: #151515;
-                --text-primary: #f5f0e8;
-                --text-secondary: #a89f91;
-                --accent-gold: #c9a962;
-                --accent-warm: #e8c87a;
-                --accent-glow: rgba(232, 200, 122, 0.15);
-                --black-dress: #1a1a1a;
-                --beige-dress: #c9b896;
-                --chocolate-dress: #3d2b1f;
-            }
-
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            html {
-                scroll-behavior: smooth;
-            }
-
-            body {
-                font-family: "Montserrat", sans-serif;
-                background-color: var(--bg-primary);
-                color: var(--text-primary);
-                line-height: 1.8;
-                font-weight: 300;
-                overflow-x: hidden;
-            }
-
-            /* Subtle noise texture overlay */
-            body::before {
-                content: "";
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-                opacity: 0.03;
-                pointer-events: none;
-                z-index: 1000;
-            }
-
-            /* Floating candle lights */
-            .candle-glow {
-                position: fixed;
-                border-radius: 50%;
-                background: radial-gradient(
-                    circle,
-                    var(--accent-glow) 0%,
-                    transparent 70%
-                );
-                pointer-events: none;
-                z-index: -1;
-            }
-
-            .candle-glow-1 {
-                width: 600px;
-                height: 600px;
-                top: 10%;
-                right: -200px;
-                animation: float 8s ease-in-out infinite;
-            }
-
-            .candle-glow-2 {
-                width: 400px;
-                height: 400px;
-                bottom: 20%;
-                left: -100px;
-                animation: float 10s ease-in-out infinite reverse;
-            }
-
-            .candle-glow-3 {
-                width: 300px;
-                height: 300px;
-                top: 50%;
-                left: 30%;
-                animation: float 12s ease-in-out infinite;
-            }
-
-            @keyframes float {
-                0%,
-                100% {
-                    transform: translate(0, 0) scale(1);
-                    opacity: 0.5;
-                }
-                50% {
-                    transform: translate(30px, -20px) scale(1.1);
-                    opacity: 0.7;
-                }
-            }
-
-            /* Navigation */
-            nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                padding: 1.5rem 3rem;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                z-index: 100;
-                background: linear-gradient(
-                    to bottom,
-                    var(--bg-primary),
-                    transparent
-                );
-            }
-
-            .nav-logo {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.2rem;
-                letter-spacing: 0.3em;
-                color: var(--accent-gold);
-            }
-
-            .nav-links {
-                display: flex;
-                gap: 2rem;
-                list-style: none;
-            }
-
-            .nav-links a {
-                color: var(--text-secondary);
-                text-decoration: none;
-                font-size: 0.7rem;
-                letter-spacing: 0.15em;
-                text-transform: uppercase;
-                transition: color 0.3s ease;
-            }
-
-            .nav-links a:hover {
-                color: var(--accent-gold);
-            }
-
-            /* Hero Section */
-            .hero {
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-                padding: 2rem;
-                position: relative;
-                background-image: url("img/photo.jpeg");
-                background-size: cover;
-                background-position: top center;
-                background-repeat: no-repeat;
-            }
-
-            .hero::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(10, 10, 10, 0.7);
-                z-index: 0;
-            }
-
-            .hero > *:not(.scroll-indicator) {
-                position: relative;
-                z-index: 1;
-            }
-
-            .hero > .scroll-indicator {
-                z-index: 1;
-            }
-
-            .code-comment {
-                font-family: "Source Code Pro", monospace;
-                font-size: 0.8rem;
-                color: var(--text-secondary);
-                opacity: 0.6;
-                /*margin-bottom: 1rem;*/
-                animation: fadeIn 1s ease-out 0.3s both;
-            }
-
-            .hero-names {
-                font-family: "Cormorant Garamond", serif;
-                font-size: clamp(3rem, 10vw, 7rem);
-                font-weight: 300;
-                letter-spacing: 0.1em;
-                margin-bottom: 1rem;
-                animation: fadeIn 1.2s ease-out 0.5s both;
-            }
-
-            .hero-names .ampersand {
-                font-style: italic;
-                color: var(--accent-gold);
-                margin: 0 0.3em;
-            }
-
-            .hero-date {
-                font-family: "Source Code Pro", monospace;
-                font-size: 1.1rem;
-                letter-spacing: 0.5em;
-                color: var(--accent-warm);
-                margin-top: 1.5rem;
-                animation: fadeIn 1s ease-out 0.8s both;
-            }
-
-            .scroll-indicator {
-                position: absolute;
-                bottom: 3rem;
-                transform: translateX(-50%);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 0.5rem;
-                animation: fadeIn 1s ease-out 1.2s both;
-            }
-
-            .scroll-indicator span {
-                font-size: 0.65rem;
-                letter-spacing: 0.2em;
-                text-transform: uppercase;
-                color: var(--text-secondary);
-            }
-
-            .scroll-line {
-                width: 1px;
-                height: 60px;
-                background: linear-gradient(
-                    to bottom,
-                    var(--accent-gold),
-                    transparent
-                );
-                animation: scrollPulse 2s ease-in-out infinite;
-            }
-
-            @keyframes scrollPulse {
-                0%,
-                100% {
-                    transform: scaleY(1);
-                    opacity: 1;
-                }
-                50% {
-                    transform: scaleY(0.5);
-                    opacity: 0.5;
-                }
-            }
-
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            /* Sections */
-            section {
-                padding: 6rem 2rem;
-                max-width: 900px;
-                margin: 0 auto;
-            }
-
-            .section-title {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 0.85rem;
-                letter-spacing: 0.4em;
-                text-transform: uppercase;
-                color: var(--accent-gold);
-                margin-bottom: 3rem;
-                display: flex;
-                align-items: center;
-                gap: 1.5rem;
-            }
-
-            .section-title::before,
-            .section-title::after {
-                content: "";
-                flex: 1;
-                height: 1px;
-                background: linear-gradient(
-                    to right,
-                    transparent,
-                    var(--accent-gold),
-                    transparent
-                );
-                opacity: 0.3;
-            }
-
-            /* Invitation Section */
-            .invitation {
-                text-align: center;
-            }
-
-            .invitation-text {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.35rem;
-                font-weight: 300;
-                line-height: 2.2;
-                color: var(--text-primary);
-                max-width: 700px;
-                margin: 0 auto 2rem;
-            }
-
-            .invitation-text em {
-                color: var(--accent-gold);
-                font-style: italic;
-            }
-
-            .code-block {
-                font-family: "Source Code Pro", monospace;
-                background: var(--bg-secondary);
-                border-left: 2px solid var(--accent-gold);
-                padding: 2rem;
-                margin: 3rem auto;
-                max-width: 500px;
-                text-align: left;
-                font-size: 0.85rem;
-                line-height: 2;
-                color: var(--text-secondary);
-            }
-
-            .code-block .keyword {
-                color: var(--accent-gold);
-            }
-
-            .code-block .string {
-                color: #a8d4a8;
-            }
-
-            .code-block .comment {
-                color: #666;
-                font-style: italic;
-            }
-
-            /* Program Section */
-            .program-timeline {
-                position: relative;
-                margin-top: 3rem;
-            }
-
-            .program-timeline::before {
-                content: "";
-                position: absolute;
-                left: 0;
-                top: 0;
-                bottom: 0;
-                width: 1px;
-                background: linear-gradient(
-                    to bottom,
-                    var(--accent-gold),
-                    transparent
-                );
-            }
-
-            .timeline-item {
-                position: relative;
-                padding-left: 2.5rem;
-                padding-bottom: 2.5rem;
-            }
-
-            .timeline-item:last-child {
-                padding-bottom: 0;
-            }
-
-            .timeline-item::before {
-                content: "";
-                position: absolute;
-                left: -4px;
-                top: 0.5rem;
-                width: 9px;
-                height: 9px;
-                background: var(--accent-gold);
-                border-radius: 50%;
-                box-shadow: 0 0 15px var(--accent-gold);
-            }
-
-            .timeline-time {
-                font-family: "Source Code Pro", monospace;
-                font-size: 0.8rem;
-                color: var(--accent-gold);
-                letter-spacing: 0.1em;
-                margin-bottom: 0.5rem;
-            }
-
-            .timeline-title {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.4rem;
-                color: var(--text-primary);
-                margin-bottom: 0.5rem;
-            }
-
-            .timeline-desc {
-                font-size: 0.9rem;
-                color: var(--text-secondary);
-                line-height: 1.8;
-            }
-
-            /* Details Section */
-            .details-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 2rem;
-                margin-top: 3rem;
-            }
-
-            .detail-card {
-                background: var(--bg-secondary);
-                padding: 1.5rem;
-                border: 1px solid rgba(201, 169, 98, 0.1);
-                transition:
-                    border-color 0.3s ease,
-                    transform 0.3s ease;
-            }
-
-            .detail-card:hover {
-                border-color: rgba(201, 169, 98, 0.3);
-                transform: translateY(-5px);
-            }
-
-            .detail-card h3 {
-                font-family: "Source Code Pro", monospace;
-                font-size: 0.7rem;
-                letter-spacing: 0.2em;
-                text-transform: uppercase;
-                color: var(--accent-gold);
-                margin-bottom: 1rem;
-            }
-
-            .detail-card p {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.3rem;
-                color: var(--text-primary);
-                line-height: 1.6;
-            }
-
-            .detail-card .small {
-                font-family: "Montserrat", sans-serif;
-                font-size: 0.85rem;
-                color: var(--text-secondary);
-                margin-top: 0.5rem;
-            }
-
-            /* Map link */
-            .map-link {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                margin-top: 1rem;
-                color: var(--accent-gold);
-                text-decoration: none;
-                font-size: 0.8rem;
-                letter-spacing: 0.1em;
-                transition: opacity 0.3s ease;
-            }
-
-            .map-link:hover {
-                opacity: 0.7;
-            }
-
-            .map-link svg {
-                width: 14px;
-                height: 14px;
-            }
-
-            /* Dress Code Section */
-            .dresscode {
-                text-align: center;
-            }
-
-            .dresscode-intro {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.15rem;
-                color: var(--text-secondary);
-                max-width: 650px;
-                margin: 0 auto 3rem;
-                line-height: 1.9;
-            }
-
-            .dresscode-cards {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 2rem;
-                margin: 2rem 0;
-            }
-
-            .dresscode-card {
-                background: var(--bg-secondary);
-                padding: 2rem;
-                border: 1px solid rgba(201, 169, 98, 0.1);
-            }
-
-            .dresscode-card h4 {
-                font-family: "Source Code Pro", monospace;
-                font-size: 0.7rem;
-                letter-spacing: 0.2em;
-                text-transform: uppercase;
-                color: var(--accent-gold);
-                margin-bottom: 1rem;
-            }
-
-            .dresscode-card p {
-                font-size: 0.9rem;
-                color: var(--text-secondary);
-                line-height: 1.8;
-            }
-
-            .dresscode-card img {
-                max-width: 100%;
-                height: auto;
-                margin-bottom: 1rem;
-                border-radius: 4px;
-            }
-
-            .color-palette {
-                display: flex;
-                justify-content: center;
-                gap: 2rem;
-                margin: 3rem 0 2rem;
-                flex-wrap: wrap;
-            }
-
-            .color-swatch {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-
-            .swatch {
-                width: 70px;
-                height: 70px;
-                border-radius: 50%;
-                border: 2px solid rgba(201, 169, 98, 0.2);
-                transition:
-                    transform 0.3s ease,
-                    box-shadow 0.3s ease;
-            }
-
-            .swatch:hover {
-                transform: scale(1.1);
-                box-shadow: 0 0 30px rgba(201, 169, 98, 0.2);
-            }
-
-            .swatch-black {
-                background-color: var(--black-dress);
-            }
-            .swatch-beige {
-                background-color: var(--beige-dress);
-            }
-            .swatch-chocolate {
-                background-color: var(--chocolate-dress);
-            }
-
-            .color-name {
-                font-family: "Source Code Pro", monospace;
-                font-size: 0.65rem;
-                letter-spacing: 0.1em;
-                color: var(--text-secondary);
-            }
-
-            .dresscode-note {
-                font-size: 0.85rem;
-                color: var(--text-secondary);
-                margin-top: 1.5rem;
-                font-style: italic;
-                opacity: 0.8;
-            }
-
-            /* Personalization Styles */
-            .personal-greeting {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.3rem;
-                color: var(--accent-warm);
-                margin-bottom: 1rem;
-                animation: fadeIn 1s ease-out 0.2s both;
-            }
-
-            .invitation-type {
-                display: inline-block;
-                font-family: "Source Code Pro", monospace;
-                font-size: 0.75rem;
-                letter-spacing: 0.15em;
-                text-transform: uppercase;
-                color: var(--accent-gold);
-                padding: 0.5rem 1rem;
-                border: 1px solid rgba(201, 169, 98, 0.3);
-                margin-bottom: 2rem;
-            }
-
-            .custom-message {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.15rem;
-                font-style: italic;
-                color: var(--accent-warm);
-                margin: 2rem auto;
-                padding: 1.5rem;
-                max-width: 600px;
-                background: rgba(201, 169, 98, 0.05);
-                border-left: 2px solid var(--accent-gold);
-            }
-
-            .already-responded {
-                text-align: center;
-                padding: 2rem;
-                background: var(--bg-secondary);
-                border: 1px solid rgba(201, 169, 98, 0.2);
-                margin-bottom: 2rem;
-            }
-
-            .already-responded h3 {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.5rem;
-                color: var(--accent-gold);
-                margin-bottom: 0.5rem;
-            }
-
-            .already-responded p {
-                font-size: 0.95rem;
-                color: var(--text-secondary);
-                margin-bottom: 1rem;
-            }
-
-            .change-response-btn {
-                display: inline-block;
-                padding: 0.8rem 1.5rem;
-                background: transparent;
-                border: 1px solid var(--accent-gold);
-                color: var(--accent-gold);
-                font-family: "Montserrat", sans-serif;
-                font-size: 0.75rem;
-                letter-spacing: 0.2em;
-                text-transform: uppercase;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-
-            .change-response-btn:hover {
-                background: var(--accent-gold);
-                color: var(--bg-primary);
-            }
-
-            .hidden {
-                display: none !important;
-            }
-
-            /* Partner Section */
-            .partner-section {
-                margin-top: 2rem;
-                padding-top: 2rem;
-                border-top: 1px solid rgba(201, 169, 98, 0.2);
-            }
-
-            .partner-section-title {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.2rem;
-                color: var(--accent-gold);
-                margin-bottom: 1.5rem;
-                text-align: center;
-            }
-
-            /* Page Loader */
-            .page-loader {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: var(--bg-primary);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                z-index: 9999;
-                transition: opacity 0.5s ease;
-            }
-
-            .page-loader.fade-out {
-                opacity: 0;
-                pointer-events: none;
-            }
-
-            .loader-spinner {
-                width: 40px;
-                height: 40px;
-                border: 2px solid rgba(201, 169, 98, 0.2);
-                border-top-color: var(--accent-gold);
-                border-radius: 50%;
-                animation: spin 1s linear infinite;
-            }
-
-            .loader-text {
-                margin-top: 1.5rem;
-                font-family: "Source Code Pro", monospace;
-                font-size: 0.8rem;
-                color: var(--text-secondary);
-                letter-spacing: 0.1em;
-            }
-
-            /* Rocky Section */
-            .rocky-section {
-                text-align: center;
-                padding: 4rem 2rem;
-                background: var(--bg-secondary);
-                margin: 4rem 0;
-                border: 1px solid rgba(201, 169, 98, 0.1);
-            }
-
-            .rocky-image {
-                max-width: 150px;
-                margin: 1.5rem auto;
-                display: block;
-                border-radius: 8px;
-            }
-
-            .rocky-title {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.8rem;
-                color: var(--accent-gold);
-                margin-bottom: 1rem;
-            }
-
-            .rocky-desc {
-                font-size: 0.95rem;
-                color: var(--text-secondary);
-                max-width: 500px;
-                margin: 0 auto;
-                line-height: 1.8;
-            }
-
-            /* RSVP Section */
-            .rsvp {
-                text-align: center;
-            }
-
-            .rsvp-intro {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.2rem;
-                color: var(--text-secondary);
-                margin-bottom: 1rem;
-            }
-
-            .rsvp-deadline {
-                font-family: "Source Code Pro", monospace;
-                font-size: 0.85rem;
-                color: var(--accent-gold);
-                margin-bottom: 3rem;
-                letter-spacing: 0.1em;
-            }
-
-            .rsvp-form {
-                max-width: 550px;
-                margin: 0 auto;
-            }
-
-            .form-group {
-                margin-bottom: 1.5rem;
-                text-align: left;
-            }
-
-            .form-group label {
-                display: flex;
-                font-family: "Source Code Pro", monospace;
-                font-size: 0.7rem;
-                letter-spacing: 0.15em;
-                text-transform: uppercase;
-                color: var(--accent-gold);
-                margin-bottom: 0.5rem;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                width: 100%;
-                padding: 1rem;
-                background: var(--bg-secondary);
-                border: 1px solid rgba(201, 169, 98, 0.2);
-                color: var(--text-primary);
-                font-family: "Montserrat", sans-serif;
-                font-size: 0.95rem;
-                transition: border-color 0.3s ease;
-            }
-
-            .form-group input:focus,
-            .form-group select:focus,
-            .form-group textarea:focus {
-                outline: none;
-                border-color: var(--accent-gold);
-            }
-
-            .form-group input::placeholder,
-            .form-group textarea::placeholder {
-                color: var(--text-secondary);
-                opacity: 0.5;
-            }
-
-            .form-group select {
-                cursor: pointer;
-                appearance: none;
-                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a962' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-                background-repeat: no-repeat;
-                background-position: right 1rem center;
-            }
-
-            .form-group select option {
-                background: var(--bg-primary);
-                color: var(--text-primary);
-            }
-
-            .form-group textarea {
-                min-height: 100px;
-                resize: vertical;
-            }
-
-            /* Checkbox group for drinks */
-            .checkbox-group {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 0.75rem;
-                margin-top: 0.5rem;
-            }
-
-            .checkbox-item {
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-                cursor: pointer;
-            }
-
-            .checkbox-item input[type="checkbox"] {
-                width: auto;
-                appearance: none;
-                width: 18px;
-                height: 18px;
-                border: 1px solid rgba(201, 169, 98, 0.4);
-                background: var(--bg-secondary);
-                cursor: pointer;
-                position: relative;
-                flex-shrink: 0;
-            }
-
-            .checkbox-item input[type="checkbox"]:checked {
-                background: var(--accent-gold);
-                border-color: var(--accent-gold);
-            }
-
-            .checkbox-item input[type="checkbox"]:checked::after {
-                content: "✓";
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                color: var(--bg-primary);
-                font-size: 12px;
-            }
-
-            .checkbox-item span {
-                font-size: 0.85rem;
-                color: var(--text-secondary);
-                font-family: "Cormorant Garamond", serif;
-            }
-
-            .submit-btn {
-                width: 100%;
-                padding: 1.2rem 2rem;
-                margin-top: 1.5rem;
-                background: transparent;
-                border: 1px solid var(--accent-gold);
-                color: var(--accent-gold);
-                font-family: "Montserrat", sans-serif;
-                font-size: 0.8rem;
-                letter-spacing: 0.3em;
-                text-transform: uppercase;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-
-            .submit-btn:hover {
-                background: var(--accent-gold);
-                color: var(--bg-primary);
-            }
-
-            .submit-btn:disabled {
-                opacity: 0.7;
-                cursor: not-allowed;
-            }
-
-            .submit-btn.loading {
-                position: relative;
-                color: transparent;
-            }
-
-            .submit-btn.loading::after {
-                content: "";
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 20px;
-                height: 20px;
-                margin: -10px 0 0 -10px;
-                border: 2px solid var(--accent-gold);
-                border-top-color: transparent;
-                border-radius: 50%;
-                animation: spin 0.8s linear infinite;
-            }
-
-            @keyframes spin {
-                to {
-                    transform: rotate(360deg);
-                }
-            }
-
-            /* Success message */
-            .success-message {
-                display: none;
-                text-align: center;
-                padding: 3rem;
-                background: var(--bg-secondary);
-                border: 1px solid var(--accent-gold);
-            }
-
-            .success-message.show {
-                display: block;
-            }
-
-            .success-message h3 {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.8rem;
-                color: var(--accent-gold);
-                margin-bottom: 1rem;
-            }
-
-            .success-message p {
-                color: var(--text-secondary);
-                font-size: 0.95rem;
-            }
-
-            /* Organizer Section */
-            .organizer {
-                text-align: center;
-                padding: 4rem 2rem;
-                background: var(--bg-secondary);
-                margin-top: 4rem;
-            }
-
-            .organizer-text {
-                font-size: 0.9rem;
-                color: var(--text-secondary);
-                max-width: 550px;
-                margin: 0 auto 2rem;
-                line-height: 1.9;
-            }
-
-            .organizer-contact {
-                margin-top: 2rem;
-            }
-
-            .organizer-name {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.3rem;
-                color: var(--text-primary);
-                margin-bottom: 0.5rem;
-            }
-
-            .organizer-phone {
-                font-family: "Source Code Pro", monospace;
-                font-size: 0.9rem;
-                color: var(--accent-gold);
-                text-decoration: none;
-                display: block;
-                margin-bottom: 0.3rem;
-            }
-
-            .organizer-tg {
-                font-size: 0.85rem;
-                color: var(--text-secondary);
-                text-decoration: none;
-            }
-
-            .organizer-tg:hover {
-                color: var(--accent-gold);
-            }
-
-            /* Footer */
-            footer {
-                text-align: center;
-                padding: 4rem 2rem;
-                border-top: 1px solid rgba(201, 169, 98, 0.1);
-            }
-
-            .footer-names {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 2rem;
-                color: var(--accent-gold);
-                margin-bottom: 1rem;
-            }
-
-            .footer-code {
-                font-family: "Source Code Pro", monospace;
-                font-size: 0.75rem;
-                color: var(--text-secondary);
-                opacity: 0.5;
-            }
-
-            .footer-waiting {
-                font-family: "Cormorant Garamond", serif;
-                font-size: 1.1rem;
-                color: var(--text-secondary);
-                margin-top: 2rem;
-                font-style: italic;
-            }
-
-            /* Responsive */
-            @media (max-width: 768px) {
-                nav {
-                    padding: 1rem 1.5rem;
-                }
-
-                .nav-links {
-                    display: none;
-                }
-
-                section {
-                    padding: 4rem 1.5rem;
-                }
-
-                .hero-names {
-                    font-size: clamp(2.5rem, 12vw, 4rem);
-                }
-
-                .invitation-text {
-                    font-size: 1.15rem;
-                }
-
-                .code-block {
-                    font-size: 0.75rem;
-                    padding: 1.5rem;
-                }
-
-                .timeline-item {
-                    padding-left: 2rem;
-                }
-
-                .color-palette {
-                    gap: 1.5rem;
-                }
-
-                .swatch {
-                    width: 55px;
-                    height: 55px;
-                }
-
-                .checkbox-group {
-                    grid-template-columns: 1fr;
-                }
-
-                .rocky-image {
-                    max-width: 120px;
-                }
-            }
-        </style>
+        <link rel="stylesheet" href="css/styles.css" />
+        <script src="js/app.js"></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"
+        ></script>
     </head>
-    <body>
+    <body
+        x-data
+        @mousemove="updateParallax($event)"
+        x-init="$store.guest.fetch()"
+    >
         <!-- Page Loader (shown while fetching guest data) -->
-        <div class="page-loader hidden" id="pageLoader">
+        <div
+            class="page-loader"
+            x-show="$store.guest.loading"
+            x-transition:leave="fade-out"
+            x-cloak
+        >
             <div class="loader-spinner"></div>
             <div class="loader-text">// loading...</div>
         </div>
@@ -1104,7 +52,12 @@
 
         <!-- Hero Section -->
         <section class="hero">
-            <div id="personal-greeting" class="personal-greeting hidden"></div>
+            <div
+                class="personal-greeting"
+                x-show="$store.guest.data?.name"
+                x-text="$store.guest.greeting"
+                x-cloak
+            ></div>
             <div class="code-comment">// initialization complete</div>
             <h1 class="hero-names">
                 Саша <span class="ampersand">&</span> Лиза
@@ -1119,7 +72,12 @@
         <!-- Invitation Section -->
         <section id="invitation" class="invitation">
             <div class="section-title">Приглашение</div>
-            <div id="invitation-type" class="invitation-type hidden"></div>
+            <div
+                class="invitation-type"
+                x-show="$store.guest.invitationTypeLabel"
+                x-text="$store.guest.invitationTypeLabel"
+                x-cloak
+            ></div>
             <p class="invitation-text">
                 Любовь не всегда выражается словами. Иногда она проявляется — в
                 паузах между фразами, в прикосновениях, во взглядах, которые
@@ -1136,7 +94,8 @@
                 <span class="keyword">const</span> love = {<br />
                 &nbsp;&nbsp;осознанный: <span class="string">true</span>,<br />
                 &nbsp;&nbsp;надёжный: <span class="string">true</span>,<br />
-                &nbsp;&nbsp;навсегда: <span class="string">"∞"</span><br />
+                &nbsp;&nbsp;навсегда: <span class="string">"&#8734;"</span
+                ><br />
                 };
             </div>
 
@@ -1145,7 +104,12 @@
                 присоединитесь к нам и вместе с нами прочитаете наш
                 <em>«код любви»</em>.
             </p>
-            <div id="custom-message" class="custom-message hidden"></div>
+            <div
+                class="custom-message"
+                x-show="$store.guest.data?.custom_message"
+                x-text="$store.guest.data?.custom_message"
+                x-cloak
+            ></div>
         </section>
 
         <!-- Program Section -->
@@ -1193,9 +157,7 @@
                     <div class="timeline-time">22:00</div>
                     <div class="timeline-title">Танцы</div>
                     <div class="timeline-desc">
-                        Забудьте обо всём и танцуйте так, будто никто не видит.
-                        Мы подобрали классную команду профессиональных
-                        музыкантов!
+                        Забудьте обо всём и танцуйте так, будто никто не видит!
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -1304,12 +266,12 @@
             <p class="rocky-desc">
                 Рокки обожает исследовать всё новое, и, к сожалению, цветы могут
                 быть для него опасны. Поэтому будем рады, если вы воздержитесь
-                от букетов и вместо этого присоединитесь к нашей акции по помощи
+                от букетов и вместо этого присоединитесь к нашей акции помощи
                 бездомным животным: на собранные средства мы купим лакомства и
                 лекарства. Также можно принести с собой корм, миски или крупы —
                 всё будет передано фонду
                 <a
-                    href="https://www.helpanimals.ru/"
+                    href="https://t.me/helpanimals_ekb/"
                     target="_blank"
                     style="color: var(--accent-gold)"
                     >@helpanimals_ekb</a
@@ -1328,7 +290,13 @@
         </div>
 
         <!-- RSVP Section -->
-        <section id="rsvp" class="rsvp hidden">
+        <section
+            id="rsvp"
+            class="rsvp"
+            x-data="rsvpForm"
+            x-show="$store.guest.data"
+            x-cloak
+        >
             <div class="section-title">Анкета</div>
             <p class="rsvp-intro">
                 Мы хотим, чтобы этот день был максимально комфортным для каждого
@@ -1336,201 +304,211 @@
             </p>
             <p class="rsvp-deadline">Просим ответить до 17 февраля 2026</p>
 
-            <!-- Success Message (hidden by default) -->
-            <div class="success-message" id="successMessage">
+            <!-- Success Message -->
+            <div class="success-message" x-show="submitted" x-cloak>
                 <h3>Спасибо!</h3>
                 <p>Ваш ответ успешно отправлен.<br />Ждём вас на празднике!</p>
             </div>
 
-            <!-- Already Responded Message (for personalized links) -->
-            <div class="already-responded hidden" id="alreadyResponded">
+            <!-- Already Responded Message -->
+            <div
+                class="already-responded"
+                x-show="$store.guest.hasResponded && !showForm && !submitted"
+                x-cloak
+            >
                 <h3>Спасибо за ваш ответ!</h3>
                 <p>Мы уже получили вашу анкету.</p>
-                <button class="change-response-btn" onclick="showFormAgain()">
+                <button class="change-response-btn" @click="changeResponse()">
                     Изменить ответ
                 </button>
             </div>
 
             <form
                 class="rsvp-form"
-                id="rsvpForm"
-                onsubmit="handleSubmit(event)"
+                x-show="showForm && !submitted"
+                @submit.prevent="submit"
             >
-                <input type="hidden" id="guestId" name="guest_id" value="" />
-                <div class="form-group" id="name-group">
-                    <label for="name">Как вас зовут?</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        placeholder="Имя и Фамилия"
-                        required
-                    />
-                </div>
-
                 <div class="form-group">
                     <label for="attendance">Присутствие</label>
-                    <select id="attendance" name="attendance" required>
+                    <select id="attendance" x-model="attendance" required>
                         <option value="">Выберите ответ</option>
                         <option value="Приду">С радостью приду</option>
                         <option
                             value="Приду с партнёром"
-                            id="attendance-couple"
-                            class="hidden"
+                            x-show="$store.guest.isCouple"
                         >
-                            Буду с партнёром
+                            Будем оба
                         </option>
                         <option value="Не смогу">К сожалению, не смогу</option>
                     </select>
                 </div>
 
                 <!-- Guest Preferences Section -->
-                <div class="partner-section" id="guest-section">
-                    <div class="partner-section-title hidden" id="guest-section-title">Ваши предпочтения</div>
+                <div class="partner-section">
+                    <div
+                        class="partner-section-title"
+                        x-show="showGuestSectionTitle"
+                        x-text="$store.guest.guestSectionTitle"
+                        x-cloak
+                    ></div>
 
                     <div class="form-group">
-                        <label for="dietary">Аллергии или предпочтения по меню</label>
+                        <label for="dietary"
+                            >Аллергии или предпочтения по меню</label
+                        >
                         <input
                             type="text"
                             id="dietary"
-                            name="dietary"
+                            x-model="dietary"
                             placeholder="Например, не ем свинину"
                         />
                     </div>
 
-                <div class="form-group" id="accommodation-group">
-                    <label for="accommodation">Нужно ли проживание?</label>
-                    <select id="accommodation" name="accommodation" required>
-                        <option value="">Выберите ответ</option>
-                        <option value="Нужно на 25.04">Нужно на 25.04</option>
-                        <option value="Нужно на 25-26.04">
-                            Нужно на 25-26.04
-                        </option>
-                        <option value="Не нужно">Не нужно</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="alcohol-group">
-                    <label>Предпочтения по алкоголю</label>
-                    <p
-                        style="
-                            font-size: 0.8rem;
-                            color: var(--text-secondary);
-                            margin-bottom: 1rem;
-                            opacity: 0.7;
-                        "
+                    <div
+                        class="form-group"
+                        x-show="$store.guest.showAccommodation"
                     >
-                        Не считая бокала игристого во время сбора гостей
-                    </p>
-                    <div class="checkbox-group">
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="no_alcohol"
-                            />
-                            <span>Не пью алкоголь</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="wine_white_dry"
-                            />
-                            <span>Вино белое сухое</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="wine_white_sweet"
-                            />
-                            <span>Вино белое полусладкое</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="wine_red_sweet"
-                            />
-                            <span>Вино красное полусладкое</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="wine_red_dry"
-                            />
-                            <span>Вино красное сухое</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="champagne_brut"
-                            />
-                            <span>Шампанское брют</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="champagne_sweet"
-                            />
-                            <span>Шампанское полусладкое</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="cocktails_aperol"
-                            />
-                            <span>Коктейли (Апероль, Мартини…)</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="cognac"
-                            />
-                            <span>Коньяк</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="whiskey"
-                            />
-                            <span>Виски</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="vodka"
-                            />
-                            <span>Водка</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input
-                                type="checkbox"
-                                name="drinks"
-                                data-key="cocktails_cola"
-                            />
-                            <span>Коктейли (Виски-кола, Ром-кола…)</span>
-                        </label>
+                        <label for="accommodation">Нужно ли проживание?</label>
+                        <select
+                            id="accommodation"
+                            x-model="accommodation"
+                            :required="$store.guest.showAccommodation"
+                        >
+                            <option value="">Выберите ответ</option>
+                            <option value="Нужно на 25.04">
+                                Нужно на 25.04
+                            </option>
+                            <option value="Нужно на 25-26.04">
+                                Нужно на 25-26.04
+                            </option>
+                            <option value="Не нужно">Не нужно</option>
+                        </select>
                     </div>
-                </div>
+
+                    <div class="form-group" x-show="$store.guest.showAlcohol">
+                        <label>Предпочтения по алкоголю</label>
+                        <p
+                            style="
+                                font-size: 0.8rem;
+                                color: var(--text-secondary);
+                                margin-bottom: 1rem;
+                                opacity: 0.7;
+                            "
+                        >
+                            Не считая бокала игристого во время сбора гостей
+                        </p>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.no_alcohol"
+                                    @change="toggleNoAlcohol()"
+                                />
+                                <span>Не пью алкоголь</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.wine_white_dry"
+                                    :disabled="isDrinkDisabled('wine_white_dry')"
+                                />
+                                <span>Вино белое сухое</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.wine_white_sweet"
+                                    :disabled="isDrinkDisabled('wine_white_sweet')"
+                                />
+                                <span>Вино белое полусладкое</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.wine_red_sweet"
+                                    :disabled="isDrinkDisabled('wine_red_sweet')"
+                                />
+                                <span>Вино красное полусладкое</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.wine_red_dry"
+                                    :disabled="isDrinkDisabled('wine_red_dry')"
+                                />
+                                <span>Вино красное сухое</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.champagne_brut"
+                                    :disabled="isDrinkDisabled('champagne_brut')"
+                                />
+                                <span>Шампанское брют</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.champagne_sweet"
+                                    :disabled="isDrinkDisabled('champagne_sweet')"
+                                />
+                                <span>Шампанское полусладкое</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.cocktails_aperol"
+                                    :disabled="isDrinkDisabled('cocktails_aperol')"
+                                />
+                                <span>Коктейли (Апероль, Мартини…)</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.cognac"
+                                    :disabled="isDrinkDisabled('cognac')"
+                                />
+                                <span>Коньяк</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.whiskey"
+                                    :disabled="isDrinkDisabled('whiskey')"
+                                />
+                                <span>Виски</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.vodka"
+                                    :disabled="isDrinkDisabled('vodka')"
+                                />
+                                <span>Водка</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    x-model="drinks.cocktails_cola"
+                                    :disabled="isDrinkDisabled('cocktails_cola')"
+                                />
+                                <span>Коктейли (Виски-кола, Ром-кола…)</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Partner Preferences (shown for couples) -->
-                <div class="partner-section hidden" id="partner-section">
+                <div
+                    class="partner-section"
+                    x-show="showPartnerSection"
+                    x-transition
+                    x-cloak
+                >
                     <div
                         class="partner-section-title"
-                        id="partner-section-title"
-                    >
-                        Предпочтения партнёра
-                    </div>
+                        x-text="$store.guest.partnerSectionTitle"
+                    ></div>
 
                     <div class="form-group">
                         <label for="partner-dietary"
@@ -1539,107 +517,107 @@
                         <input
                             type="text"
                             id="partner-dietary"
-                            name="partner_dietary"
+                            x-model="partnerDietary"
                             placeholder="Например, не ем свинину"
                         />
                     </div>
 
-                    <div class="form-group" id="partner-alcohol-group">
+                    <div class="form-group" x-show="$store.guest.showAlcohol">
                         <label>Предпочтения по алкоголю</label>
                         <div class="checkbox-group">
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="no_alcohol"
+                                    x-model="partnerDrinks.no_alcohol"
+                                    @change="togglePartnerNoAlcohol()"
                                 />
                                 <span>Не пью алкоголь</span>
                             </label>
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="wine_white_dry"
+                                    x-model="partnerDrinks.wine_white_dry"
+                                    :disabled="isPartnerDrinkDisabled('wine_white_dry')"
                                 />
                                 <span>Вино белое сухое</span>
                             </label>
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="wine_white_sweet"
+                                    x-model="partnerDrinks.wine_white_sweet"
+                                    :disabled="isPartnerDrinkDisabled('wine_white_sweet')"
                                 />
                                 <span>Вино белое полусладкое</span>
                             </label>
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="wine_red_sweet"
+                                    x-model="partnerDrinks.wine_red_sweet"
+                                    :disabled="isPartnerDrinkDisabled('wine_red_sweet')"
                                 />
                                 <span>Вино красное полусладкое</span>
                             </label>
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="wine_red_dry"
+                                    x-model="partnerDrinks.wine_red_dry"
+                                    :disabled="isPartnerDrinkDisabled('wine_red_dry')"
                                 />
                                 <span>Вино красное сухое</span>
                             </label>
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="champagne_brut"
+                                    x-model="partnerDrinks.champagne_brut"
+                                    :disabled="isPartnerDrinkDisabled('champagne_brut')"
                                 />
                                 <span>Шампанское брют</span>
                             </label>
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="champagne_sweet"
+                                    x-model="partnerDrinks.champagne_sweet"
+                                    :disabled="isPartnerDrinkDisabled('champagne_sweet')"
                                 />
                                 <span>Шампанское полусладкое</span>
                             </label>
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="cocktails_aperol"
+                                    x-model="partnerDrinks.cocktails_aperol"
+                                    :disabled="isPartnerDrinkDisabled('cocktails_aperol')"
                                 />
                                 <span>Коктейли (Апероль, Мартини…)</span>
                             </label>
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="cognac"
+                                    x-model="partnerDrinks.cognac"
+                                    :disabled="isPartnerDrinkDisabled('cognac')"
                                 />
                                 <span>Коньяк</span>
                             </label>
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="whiskey"
+                                    x-model="partnerDrinks.whiskey"
+                                    :disabled="isPartnerDrinkDisabled('whiskey')"
                                 />
                                 <span>Виски</span>
                             </label>
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="vodka"
+                                    x-model="partnerDrinks.vodka"
+                                    :disabled="isPartnerDrinkDisabled('vodka')"
                                 />
                                 <span>Водка</span>
                             </label>
                             <label class="checkbox-item">
                                 <input
                                     type="checkbox"
-                                    name="partner_drinks"
-                                    data-key="cocktails_cola"
+                                    x-model="partnerDrinks.cocktails_cola"
+                                    :disabled="isPartnerDrinkDisabled('cocktails_cola')"
                                 />
                                 <span>Коктейли (Виски-кола, Ром-кола…)</span>
                             </label>
@@ -1647,7 +625,12 @@
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn" id="submitBtn">
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    :class="{ 'loading': submitting }"
+                    :disabled="submitting"
+                >
                     Отправить
                 </button>
             </form>
@@ -1687,405 +670,5 @@
                 С нетерпением ждём, когда настанет этот день!
             </div>
         </footer>
-
-        <script>
-            // Google Apps Script URL
-            const GOOGLE_SCRIPT_URL =
-                "https://script.google.com/macros/s/AKfycbwlQQghiEWwnjTVHcri4N5RkluqKfywwjc9GLamlMMMUlPTtYR74YbiK4wPQ9T_iV1kYg/exec";
-
-            // Guest data storage
-            let currentGuest = null;
-
-            // Russian name declension (instrumental case - с кем?)
-            function toInstrumental(name) {
-                if (!name) return name;
-                const lastChar = name.slice(-1);
-                const lastTwoChars = name.slice(-2);
-
-                // Names ending in "ий" → "ием" (Дмитрий → Дмитрием)
-                if (lastTwoChars === "ий") return name.slice(0, -2) + "ием";
-                // Names ending in "ья" → "ьёй" (Илья → Ильёй)
-                if (lastTwoChars === "ья") return name.slice(0, -1) + "ёй";
-                // Names ending in "й" → "ем" (Андрей → Андреем)
-                if (lastChar === "й") return name.slice(0, -1) + "ем";
-                // Names ending in "ь" (male) → "ем" (Игорь → Игорем)
-                if (lastChar === "ь") return name.slice(0, -1) + "ем";
-                // Names ending in "а" → "ой" (Анна → Анной)
-                if (lastChar === "а") return name.slice(0, -1) + "ой";
-                // Names ending in "я" → "ей" (Мария → Марией)
-                if (lastChar === "я") return name.slice(0, -1) + "ей";
-                // Consonant endings (male) → add "ом" (Владимир → Владимиром)
-                if (/[бвгджзклмнпрстфхцчшщ]/.test(lastChar)) {
-                    return name + "ом";
-                }
-                return name;
-            }
-
-            // Russian name declension (genitive case)
-            function toGenitive(name) {
-                if (!name) return name;
-                const lastChar = name.slice(-1);
-                const lastTwoChars = name.slice(-2);
-
-                // Names ending in "ий" → "ия" (Дмитрий → Дмитрия)
-                if (lastTwoChars === "ий") return name.slice(0, -2) + "ия";
-                // Names ending in "ья" → "ьи" (Илья → Ильи)
-                if (lastTwoChars === "ья") return name.slice(0, -1) + "и";
-                // Names ending in "й" → "я" (Андрей → Андрея)
-                if (lastChar === "й") return name.slice(0, -1) + "я";
-                // Names ending in "ь" (male) → "я" (Игорь → Игоря)
-                if (lastChar === "ь") return name.slice(0, -1) + "я";
-                // Names ending in "а" after к,г,х,ж,ш,щ,ч → "и"
-                if (lastChar === "а" && /[кгхжшщч]/.test(name.slice(-2, -1))) {
-                    return name.slice(0, -1) + "и";
-                }
-                // Names ending in "а" → "ы" (Анна → Анны)
-                if (lastChar === "а") return name.slice(0, -1) + "ы";
-                // Names ending in "я" → "и" (Мария → Марии)
-                if (lastChar === "я") return name.slice(0, -1) + "и";
-                // Consonant endings (male) → add "а" (Владимир → Владимира)
-                if (/[бвгджзклмнпрстфхцчшщ]/.test(lastChar)) {
-                    return name + "а";
-                }
-                return name;
-            }
-
-            // Parse guest ID from URL
-            function getGuestIdFromUrl() {
-                const params = new URLSearchParams(window.location.search);
-                return params.get("guest");
-            }
-
-            // Fetch guest data from Google Apps Script
-            async function fetchGuestData(guestId) {
-                try {
-                    const response = await fetch(
-                        `${GOOGLE_SCRIPT_URL}?guest=${encodeURIComponent(guestId)}`,
-                    );
-                    const data = await response.json();
-                    if (data.success && data.guest) {
-                        return data.guest;
-                    }
-                    return null;
-                } catch (error) {
-                    console.error("Error fetching guest data:", error);
-                    return null;
-                }
-            }
-
-            // Apply personalization to page
-            function applyPersonalization(guest) {
-                currentGuest = guest;
-
-                // Set guest ID in hidden field
-                document.getElementById("guestId").value = guest.guest_id;
-
-                // Personal greeting in Hero
-                const greetingEl = document.getElementById("personal-greeting");
-                if (guest.name) {
-                    // Combine names for couples
-                    const displayName =
-                        guest.invitation_type === "couple" && guest.partner_name
-                            ? `${guest.name} и ${guest.partner_name}`
-                            : guest.name;
-
-                    const greetingText =
-                        guest.group === "family"
-                            ? `Дорогие ${displayName}!`
-                            : `${displayName}, привет!`;
-                    greetingEl.textContent = greetingText;
-                    greetingEl.classList.remove("hidden");
-                }
-
-                // Invitation type indicator
-                const invTypeEl = document.getElementById("invitation-type");
-                if (guest.invitation_type === "couple") {
-                    invTypeEl.textContent = "Приглашение для двоих";
-                    invTypeEl.classList.remove("hidden");
-                } else if (guest.invitation_type === "single") {
-                    invTypeEl.textContent = "Персональное приглашение";
-                    invTypeEl.classList.remove("hidden");
-                }
-
-                // Custom message
-                const customMsgEl = document.getElementById("custom-message");
-                if (guest.custom_message) {
-                    customMsgEl.textContent = guest.custom_message;
-                    customMsgEl.classList.remove("hidden");
-                }
-
-                // Pre-fill and hide name field (we already know the guest)
-                if (guest.full_name) {
-                    document.getElementById("name").value = guest.full_name;
-                    document
-                        .getElementById("name-group")
-                        .classList.add("hidden");
-                }
-
-                // Customize attendance options and show partner section for couples
-                if (guest.invitation_type === "couple" && guest.partner_name) {
-                    const coupleOption =
-                        document.getElementById("attendance-couple");
-                    coupleOption.textContent = "Будем оба";
-                    coupleOption.classList.remove("hidden");
-
-                    // Set guest section title (shown when partner option selected)
-                    document.getElementById("guest-section-title").textContent =
-                        `Предпочтения для ${toGenitive(guest.name)}`;
-
-                    // Set partner section title
-                    document.getElementById(
-                        "partner-section-title",
-                    ).textContent = `Предпочтения для ${toGenitive(guest.partner_name)}`;
-
-                    // Hide partner alcohol if show_alcohol is false
-                    if (guest.show_alcohol === false) {
-                        document
-                            .getElementById("partner-alcohol-group")
-                            .classList.add("hidden");
-                    }
-
-                    // Show/hide partner section based on attendance selection
-                    const attendanceSelect = document.getElementById("attendance");
-                    const partnerSection = document.getElementById("partner-section");
-                    const guestSectionTitle = document.getElementById("guest-section-title");
-
-                    attendanceSelect.addEventListener("change", function() {
-                        if (this.value === "Приду с партнёром") {
-                            partnerSection.classList.remove("hidden");
-                            guestSectionTitle.classList.remove("hidden");
-                        } else {
-                            partnerSection.classList.add("hidden");
-                            guestSectionTitle.classList.add("hidden");
-                        }
-                    });
-                }
-
-                // Show/hide accommodation field
-                if (guest.show_accommodation === false) {
-                    const accommodationGroup = document.getElementById(
-                        "accommodation-group",
-                    );
-                    accommodationGroup.classList.add("hidden");
-                    document
-                        .getElementById("accommodation")
-                        .removeAttribute("required");
-                }
-
-                // Show/hide alcohol preferences
-                if (guest.show_alcohol === false) {
-                    const alcoholGroup =
-                        document.getElementById("alcohol-group");
-                    alcoholGroup.classList.add("hidden");
-                }
-
-                // Show RSVP section for valid guests
-                document.getElementById("rsvp").classList.remove("hidden");
-
-                // Handle already responded status
-                if (guest.rsvp_status === "responded") {
-                    showAlreadyResponded();
-                }
-            }
-
-            // Show "already responded" message
-            function showAlreadyResponded() {
-                const form = document.getElementById("rsvpForm");
-                const alreadyResponded =
-                    document.getElementById("alreadyResponded");
-                form.classList.add("hidden");
-                alreadyResponded.classList.remove("hidden");
-            }
-
-            // Allow user to edit their response
-            function showFormAgain() {
-                const form = document.getElementById("rsvpForm");
-                const alreadyResponded =
-                    document.getElementById("alreadyResponded");
-                form.classList.remove("hidden");
-                alreadyResponded.classList.add("hidden");
-            }
-
-            // Show/hide page loader
-            function showLoader() {
-                document
-                    .getElementById("pageLoader")
-                    .classList.remove("hidden");
-            }
-
-            function hideLoader() {
-                const loader = document.getElementById("pageLoader");
-                loader.classList.add("fade-out");
-                setTimeout(() => loader.classList.add("hidden"), 500);
-            }
-
-            // Initialize personalization on page load
-            async function initPersonalization() {
-                const guestId = getGuestIdFromUrl();
-                if (!guestId) return; // No personalization needed
-
-                showLoader();
-
-                const guest = await fetchGuestData(guestId);
-                if (guest) {
-                    applyPersonalization(guest);
-                }
-
-                hideLoader();
-            }
-
-            // Run personalization on DOM ready
-            document.addEventListener("DOMContentLoaded", initPersonalization);
-
-            // Smooth reveal on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px",
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = "1";
-                        entry.target.style.transform = "translateY(0)";
-                    }
-                });
-            }, observerOptions);
-
-            document
-                .querySelectorAll(
-                    "section:not(.hero), .rocky-section, .organizer",
-                )
-                .forEach((el) => {
-                    el.style.opacity = "0";
-                    el.style.transform = "translateY(30px)";
-                    el.style.transition =
-                        "opacity 0.8s ease, transform 0.8s ease";
-                    observer.observe(el);
-                });
-
-            // Form submission handler
-            async function handleSubmit(event) {
-                event.preventDefault();
-
-                const btn = document.getElementById("submitBtn");
-                const form = document.getElementById("rsvpForm");
-                const successMessage =
-                    document.getElementById("successMessage");
-
-                // Collect drinks as object with keys
-                const drinks = {};
-                document
-                    .querySelectorAll('input[name="drinks"]')
-                    .forEach((cb) => {
-                        drinks[cb.dataset.key] = cb.checked;
-                    });
-
-                // Collect partner drinks
-                const partnerDrinks = {};
-                document
-                    .querySelectorAll('input[name="partner_drinks"]')
-                    .forEach((cb) => {
-                        partnerDrinks[cb.dataset.key] = cb.checked;
-                    });
-
-                const guestId = document.getElementById("guestId").value;
-
-                const formData = {
-                    name: document.getElementById("name").value,
-                    attendance: document.getElementById("attendance").value,
-                    dietary: document.getElementById("dietary").value || "—",
-                    accommodation:
-                        document.getElementById("accommodation").value || "",
-                    drinks: drinks,
-                    partner_name: currentGuest?.partner_name || "",
-                    partner_dietary:
-                        document.getElementById("partner-dietary").value || "—",
-                    partner_drinks: partnerDrinks,
-                    guest_id: guestId || null,
-                };
-
-                // Show loading state
-                btn.classList.add("loading");
-                btn.disabled = true;
-
-                try {
-                    // Send data to Google Sheets
-                    await fetch(GOOGLE_SCRIPT_URL, {
-                        method: "POST",
-                        mode: "no-cors", // Required for Google Apps Script
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(formData),
-                    });
-
-                    // Show success message
-                    form.style.display = "none";
-                    successMessage.classList.add("show");
-                } catch (error) {
-                    console.error("Error:", error);
-                    btn.classList.remove("loading");
-                    btn.disabled = false;
-                    btn.textContent = "Ошибка. Попробуйте ещё раз";
-                    btn.style.borderColor = "#ff6b6b";
-                    btn.style.color = "#ff6b6b";
-
-                    setTimeout(() => {
-                        btn.textContent = "Отправить";
-                        btn.style.borderColor = "";
-                        btn.style.color = "";
-                    }, 3000);
-                }
-            }
-
-            // Handle "no alcohol" checkbox for main guest
-            document
-                .querySelector('input[name="drinks"][data-key="no_alcohol"]')
-                .addEventListener("change", function () {
-                    const otherCheckboxes = document.querySelectorAll(
-                        'input[name="drinks"]:not([data-key="no_alcohol"])',
-                    );
-                    if (this.checked) {
-                        otherCheckboxes.forEach((cb) => {
-                            cb.checked = false;
-                            cb.disabled = true;
-                        });
-                    } else {
-                        otherCheckboxes.forEach((cb) => (cb.disabled = false));
-                    }
-                });
-
-            // Handle "no alcohol" checkbox for partner
-            document
-                .querySelector(
-                    'input[name="partner_drinks"][data-key="no_alcohol"]',
-                )
-                .addEventListener("change", function () {
-                    const otherCheckboxes = document.querySelectorAll(
-                        'input[name="partner_drinks"]:not([data-key="no_alcohol"])',
-                    );
-                    if (this.checked) {
-                        otherCheckboxes.forEach((cb) => {
-                            cb.checked = false;
-                            cb.disabled = true;
-                        });
-                    } else {
-                        otherCheckboxes.forEach((cb) => (cb.disabled = false));
-                    }
-                });
-
-            // Parallax effect for candle glows
-            document.addEventListener("mousemove", (e) => {
-                const glows = document.querySelectorAll(".candle-glow");
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-
-                glows.forEach((glow, index) => {
-                    const speed = (index + 1) * 10;
-                    glow.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-                });
-            });
-        </script>
     </body>
 </html>
