@@ -290,6 +290,11 @@ document.addEventListener("alpine:init", () => {
       );
     },
 
+    // Computed: guest is attending (not declined)
+    get canAttend() {
+      return this.attendance !== "" && this.attendance !== "Не смогу";
+    },
+
     // Handle "no alcohol" toggle for main guest
     toggleNoAlcohol() {
       if (this.drinks.no_alcohol) {

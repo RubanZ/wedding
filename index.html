@@ -343,8 +343,21 @@
                     </select>
                 </div>
 
+                <div class="form-group" x-show="canAttend && $store.guest.showAccommodation">
+                    <label for="accommodation">Нужно ли проживание?</label>
+                    <select
+                        id="accommodation"
+                        x-model="accommodation"
+                        :required="$store.guest.showAccommodation"
+                    >
+                        <option value="">Выберите ответ</option>
+                        <option value="Нужно на 25.04">Нужно на 25.04</option>
+                        <option value="Не нужно">Не нужно</option>
+                    </select>
+                </div>
+
                 <!-- Guest Preferences Section -->
-                <div class="partner-section">
+                <div class="partner-section" x-show="canAttend" x-transition>
                     <div
                         class="partner-section-title"
                         x-show="showGuestSectionTitle"
@@ -362,27 +375,6 @@
                             x-model="dietary"
                             placeholder="Например, не ем свинину"
                         />
-                    </div>
-
-                    <div
-                        class="form-group"
-                        x-show="$store.guest.showAccommodation"
-                    >
-                        <label for="accommodation">Нужно ли проживание?</label>
-                        <select
-                            id="accommodation"
-                            x-model="accommodation"
-                            :required="$store.guest.showAccommodation"
-                        >
-                            <option value="">Выберите ответ</option>
-                            <option value="Нужно на 25.04">
-                                Нужно на 25.04
-                            </option>
-                            <option value="Нужно на 25-26.04">
-                                Нужно на 25-26.04
-                            </option>
-                            <option value="Не нужно">Не нужно</option>
-                        </select>
                     </div>
 
                     <div class="form-group" x-show="$store.guest.showAlcohol">
