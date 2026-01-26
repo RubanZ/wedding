@@ -26,6 +26,21 @@ function isFemaleNameWithSoftSign(name) {
 }
 
 /**
+ * Check if name is likely female (ends in а/я or soft sign for 3rd decl.)
+ * @param {string} name - Russian name
+ * @returns {boolean}
+ */
+function isFemaleName(name) {
+  if (!name) return false;
+  const lastChar = name.slice(-1).toLowerCase();
+  // Female names typically end in -а, -я
+  if (lastChar === "а" || lastChar === "я") return true;
+  // Or soft sign for 3rd declension female names
+  if (lastChar === "ь" && isFemaleNameWithSoftSign(name)) return true;
+  return false;
+}
+
+/**
  * Convert name to instrumental case (с кем?)
  * @param {string} name - Russian name
  * @returns {string} Name in instrumental case
@@ -118,9 +133,18 @@ document.addEventListener("alpine:init", () => {
     get greeting() {
       if (!this.data?.name) return "";
       const displayName = this.displayName;
-      return this.data.group === "family"
-        ? `Дорогие ${displayName}!`
-        : `${displayName}, привет!`;
+
+      if (this.data.group === "family") {
+        // For couples — plural form
+        if (this.data.invitation_type === "couple" && this.data.partner_name) {
+          return `Дорогие ${displayName}!`;
+        }
+        // For single guest — determine gender by name
+        const salutation = isFemaleName(this.data.name) ? "Дорогая" : "Дорогой";
+        return `${salutation} ${displayName}!`;
+      }
+
+      return `${displayName}, привет!`;
     },
 
     // Computed: invitation type label
