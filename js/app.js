@@ -344,7 +344,7 @@ document.addEventListener("alpine:init", () => {
         dietary: this.dietary || "—",
         accommodation: this.accommodation || "",
         drinks: this.drinks,
-        partner_name: guest?.partner_name || "",
+        partner_name: guest?.partner_full_name || "",
         partner_dietary: this.partnerDietary || "—",
         partner_drinks: this.partnerDrinks,
         guest_id: guest?.guest_id || null,
