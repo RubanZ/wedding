@@ -345,7 +345,7 @@
                     <select
                         id="accommodation"
                         x-model="accommodation"
-                        :required="$store.guest.showAccommodation"
+                        :required="canAttend && $store.guest.showAccommodation"
                     >
                         <option value="">Выберите ответ</option>
                         <option value="Нужно на ночь 25.04-26.04">
