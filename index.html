@@ -331,15 +331,9 @@
                 <div class="form-group">
                     <label for="attendance">Присутствие</label>
                     <select id="attendance" x-model="attendance" required>
-                        <option value="">Выберите ответ</option>
-                        <option value="Приду">С радостью приду</option>
-                        <option
-                            value="Приду с партнёром"
-                            x-show="$store.guest.isCouple"
-                        >
-                            Будем оба
-                        </option>
-                        <option value="Не смогу">К сожалению, не смогу</option>
+                        <template x-for="opt in attendanceOptions" :key="opt.value">
+                            <option :value="opt.value" x-text="opt.label"></option>
+                        </template>
                     </select>
                 </div>
 

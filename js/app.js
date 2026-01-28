@@ -295,6 +295,19 @@ document.addEventListener("alpine:init", () => {
       return this.attendance !== "" && this.attendance !== "Не смогу";
     },
 
+    // Computed: attendance options (dynamic based on couple status)
+    get attendanceOptions() {
+      const options = [
+        { value: "", label: "Выберите ответ" },
+        { value: "Приду", label: "С радостью приду" },
+      ];
+      if (this.$store.guest.isCouple) {
+        options.push({ value: "Приду с партнёром", label: "Будем оба" });
+      }
+      options.push({ value: "Не смогу", label: "К сожалению, не смогу" });
+      return options;
+    },
+
     // Handle "no alcohol" toggle for main guest
     toggleNoAlcohol() {
       if (this.drinks.no_alcohol) {
